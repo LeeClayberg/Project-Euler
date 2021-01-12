@@ -1,4 +1,5 @@
 import math
+import functools
 
 
 # Get primes up to a specified number
@@ -61,3 +62,28 @@ def to_binary(num):
             bin += '0'
         power /= 2
     return int(bin)
+
+
+# Finds the repeating portion of the string
+# Returns a string
+def get_repeating(digits, start):
+    prev_repeater = digits
+    curr_repeater = list()
+    for end_index in range(1, int(len(digits)/2)+1):
+        repeater1 = digits[:end_index]
+        repeater2 = repeater1 + repeater1
+        found = compare_lists(digits[:2*end_index], repeater2)
+        if found and (len(set(repeater1)) == len(set(digits)) or start) and len(repeater1) > len(curr_repeater):
+            curr_repeater = repeater1
+    if len(curr_repeater) == 0:
+        curr_repeater = digits
+    if len(curr_repeater) < len(prev_repeater):
+        return get_repeating(curr_repeater, False)
+    else:
+        return curr_repeater
+
+
+# Check if two lists are the same
+# Returns a boolean
+def compare_lists(list_1, list_2):
+    return functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q, list_1, list_2), True)
