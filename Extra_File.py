@@ -8,7 +8,7 @@ def get_primes_up_to(num):
     prime_numbers = set()
     checker = []
 
-    for i in range(0, num):
+    for i in range(0, num+1):
         checker.append(True)
 
     for i in range(2, int(math.sqrt(num))+1):
@@ -18,7 +18,7 @@ def get_primes_up_to(num):
                 checker[i * counter] = False
                 counter += 1
 
-    for i in range(2, num):
+    for i in range(2, num+1):
         if checker[i]:
             prime_numbers.add(i)
 
@@ -86,4 +86,23 @@ def get_repeating(digits, start):
 # Check if two lists are the same
 # Returns a boolean
 def compare_lists(list_1, list_2):
-    return functools.reduce(lambda x, y : x and y, map(lambda p, q: p == q, list_1, list_2), True)
+    return functools.reduce(lambda x, y: x and y, map(lambda p, q: p == q, list_1, list_2), True)
+
+
+# Prime Factorization
+# Returns a list of pairs (prime factor, power)
+def prime_factorization_of(num, primes=None):
+    if primes is None:
+        primes = sorted(list(get_primes_up_to(num)))
+    factors = list()
+    for p in primes:
+        count = 0
+        while num % p == 0:
+            num = num // p
+            count += 1
+        if count > 0:
+            factors.append((p, count))
+        if num == 1:
+            break
+    return factors
+
