@@ -1,8 +1,8 @@
 import time
+
 tri_numbers = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, 66, 78, 91, 105, 120, 136, 153, 171, 190, 210, 231]
 store = dict()
 
-start_time = time.time()
 
 def add_to_store(num, level, count):
     if num not in store:
@@ -31,6 +31,5 @@ def triangle_recur(num, level):
     return count
 
 
-grid_size = 8
+grid_size = 20
 print(triangle_recur(grid_size + 1, grid_size - 2))
-print("--- %s seconds ---" % (time.time() - start_time))
